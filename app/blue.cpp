@@ -13,14 +13,16 @@
 
 #include "Buffer.h"
 #include "CurrentTimeService.h"
+#include "AluService.h"
 #include "jrs-thread.h"
 #include "main.h"
 #include "XMODEMReceiver.h"
 
 
-static const char blue_device_name[] = "Nano2";
+static const char blue_device_name[] = "Nano2Günter";
 static UARTService *blue_uart_service;
 static CurrentTimeService *blue_current_time_service;
+static AluService *blue_alu_service;
 
 static XMODEMReceiver *blue_xmodem;
 static Buffer blue_xmodem_buffer;
@@ -105,6 +107,8 @@ static void blue_init_completed(BLE::InitializationCompleteCallbackContext *para
 
     usb.printf("[blue] initializing current time service\r\n");
     blue_current_time_service = new CurrentTimeService(ble);
+    usb.printf("[blue] initializing ALU service\r\n");
+    blue_alu_service = new AluService(ble);
 
     /* Setup advertising */
     usb.printf("[blue] configuring and starting advertising\r\n");
